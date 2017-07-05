@@ -5,24 +5,30 @@ import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
-import android.widget.EditText;
+import android.widget.MultiAutoCompleteTextView;
 
 import com.vanniktech.emoji.emoji.Emoji;
 
-public class EmojiEditText extends EditText implements IEmojiEditable {
+/**
+ * Created by Kevin Read <me@kevin-read.com> on 05/10/16 for Emoji.
+ * Copyright (c) 2016 Kevin Read. All rights reserved.
+ */
+
+public class EmojiMultiAutoCompleteTextView extends MultiAutoCompleteTextView
+            implements IEmojiEditable {
     private int emojiSize;
 
-    public EmojiEditText(final Context context) {
+    public EmojiMultiAutoCompleteTextView(final Context context) {
         super(context);
         init(null);
     }
 
-    public EmojiEditText(final Context context, final AttributeSet attrs) {
+    public EmojiMultiAutoCompleteTextView(final Context context, final AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
     }
 
-    public EmojiEditText(final Context context, final AttributeSet attrs, final int defStyle) {
+    public EmojiMultiAutoCompleteTextView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
         init(attrs);
     }

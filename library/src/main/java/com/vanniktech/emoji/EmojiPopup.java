@@ -29,7 +29,7 @@ import static com.vanniktech.emoji.Utils.checkNotNull;
 public final class EmojiPopup {
     private static final int MIN_KEYBOARD_HEIGHT = 100;
 
-    private final EmojiEditText emojiEditText;
+    private final IEmojiEditable emojiEditText;
     final View rootView;
     final Context context;
 
@@ -89,7 +89,7 @@ public final class EmojiPopup {
         }
     };
 
-    EmojiPopup(@NonNull final View rootView, @NonNull final EmojiEditText emojiEditText, @Nullable final RecentEmoji recent) {
+    EmojiPopup(@NonNull final View rootView, @NonNull final IEmojiEditable emojiEditText, @Nullable final RecentEmoji recent) {
         this.context = rootView.getContext();
         this.rootView = rootView;
         this.emojiEditText = emojiEditText;
@@ -133,6 +133,7 @@ public final class EmojiPopup {
                 }
             }
         });
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
     }
 
     void showAtBottom() {
@@ -156,13 +157,13 @@ public final class EmojiPopup {
                 this.showAtBottom();
             } else {
                 // Open the text keyboard first and immediately after that show the emoji popup
-                emojiEditText.setFocusableInTouchMode(true);
-                emojiEditText.requestFocus();
+                ((View)emojiEditText).setFocusableInTouchMode(true);
+                ((View)emojiEditText).requestFocus();
 
                 this.showAtBottomPending();
 
                 final InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.showSoftInput(emojiEditText, InputMethodManager.SHOW_IMPLICIT);
+                inputMethodManager.showSoftInput((View)emojiEditText, InputMethodManager.SHOW_IMPLICIT);
             }
 
             if (onEmojiPopupShownListener != null) {
@@ -260,7 +261,7 @@ public final class EmojiPopup {
             return this;
         }
 
-        public EmojiPopup build(final EmojiEditText emojiEditText) {
+        public EmojiPopup build(final IEmojiEditable emojiEditText) {
             checkNotNull(emojiEditText, "EmojiEditText can't be null");
 
             final EmojiPopup emojiPopup = new EmojiPopup(rootView, emojiEditText, recentEmoji);
