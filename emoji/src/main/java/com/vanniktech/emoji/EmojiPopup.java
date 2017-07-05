@@ -273,7 +273,7 @@ public final class EmojiPopup {
       return this;
     }
 
-    @CheckResult public EmojiPopup build(@NonNull final EmojiEditText emojiEditText) {
+    @CheckResult public EmojiPopup build(@NonNull final IEmojiEditable emojiEditText) {
       EmojiManager.getInstance().verifyInstalled();
       checkNotNull(emojiEditText, "EmojiEditText can't be null");
 
