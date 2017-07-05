@@ -16,7 +16,11 @@ android {
         versionCode rootProject.ext.versionCode as int
         versionName rootProject.ext.versionName as String
 
+        vectorDrawables.useSupportLibrary = true
+
         setProperty("archivesBaseName", "app-$versionName")
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     def shouldSign = project.hasProperty('RELEASE_STORE_FILE') && project.hasProperty('RELEASE_STORE_PASSWORD') && project.hasProperty('RELEASE_KEY_ALIAS') && project.hasProperty('RELEASE_KEY_PASSWORD')
@@ -52,13 +56,25 @@ android {
 }
 
 dependencies {
-    compile project(':library')
+    compile project(':emoji-ios')
+    compile project(':emoji-google')
+    compile project(':emoji-twitter')
+    compile project(':emoji-one')
 
     compile rootProject.ext.supportAppCompat
     compile rootProject.ext.supportRecyclerView
 
-    provided rootProject.ext.findbugsAnnotations
-
     debugCompile rootProject.ext.leakCanaryDebug
     releaseCompile rootProject.ext.leakCanaryRelease
+
+    androidTestCompile deps.support.test.espresso.core
+    androidTestCompile deps.support.test.runner
+    androidTestCompile deps.support.test.rules
+    androidTestCompile deps.fastLaneScreenGrab
+}
+
+configurations.all {
+    resolutionStrategy {
+        force rootProject.ext.supportAnnotations
+    }
 }
