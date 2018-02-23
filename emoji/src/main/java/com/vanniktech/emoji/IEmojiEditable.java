@@ -4,7 +4,7 @@ import com.vanniktech.emoji.emoji.Emoji;
 
 /**
  * Created by Kevin Read <me@kevin-read.com> on 05/10/16 for Emoji.
- * Copyright (c) 2016 ${ORGANIZATION_NAME}. All rights reserved.
+ * Copyright (c) 2016 BörseGo AG. All rights reserved.
  */
 
 public interface IEmojiEditable {
